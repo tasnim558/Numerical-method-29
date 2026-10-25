@@ -1,0 +1,66 @@
+
+#include <iostream>
+#include <cmath>
+#include <iomanip>
+using namespace std;
+
+double f(double x)
+{
+    return x*x*x - 4*x - 9;
+}
+
+int main()
+{
+    double a, b, c, fa, fb, fc;
+    double tolerance = 0.001;
+
+    cout << "Enter a: ";
+    cin >> a;
+
+    cout << "Enter b: ";
+    cin >> b;
+
+    if (f(a) * f(b) >= 0)
+    {
+        cout << "Invalid interval" << endl;
+        return 0;
+    }
+
+    cout << fixed << setprecision(3);
+
+    cout << "\n";
+    cout << "+------+----------+----------+----------+----------+----------+----------+\n";
+    cout << "| Step |    a     |    b     |   f(a)   |   f(b)   |    c     |   f(c)   |\n";
+    cout << "+------+----------+----------+----------+----------+----------+----------+\n";
+
+    for (int i = 1; i <= 100; i++)
+    {
+        fa = f(a);
+        fb = f(b);
+
+        c = (a * fb - b * fa) / (fb - fa);
+        fc = f(c);
+
+        cout << "| " << setw(4) << i
+             << " | " << setw(8) << a
+             << " | " << setw(8) << b
+             << " | " << setw(8) << fa
+             << " | " << setw(8) << fb
+             << " | " << setw(8) << c
+             << " | " << setw(8) << fc << " |\n";
+
+        if (fabs(fc) < tolerance)
+            break;
+
+        if (fa * fc < 0)
+            b = c;
+        else
+            a = c;
+    }
+
+    cout << "+------+----------+----------+----------+----------+----------+----------+\n";
+
+    cout << "\nFinal Root = " << c << endl;
+
+    return 0;
+}
