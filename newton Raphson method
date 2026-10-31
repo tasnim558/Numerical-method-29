@@ -1,0 +1,82 @@
+#include <iostream>
+#include <cmath>
+#include <iomanip>
+using namespace std;
+
+double f(double x)
+{
+    return -4*x + cos(x) + 2;
+}
+
+double df(double x)
+{
+    return -4 - sin(x);
+}
+
+int main()
+{
+    double a, b, x, x_new, error;
+    double fa, fb;
+    double tolerance = 0.001;
+
+    cout << "Enter a: ";
+    cin >> a;
+
+    cout << "Enter b: ";
+    cin >> b;
+
+    fa = f(a);
+    fb = f(b);
+
+    cout << "\nf(a) = " << fa << endl;
+    cout << "f(b) = " << fb << endl;
+
+    if (fa * fb < 0)
+    {
+        cout << "Valid Interval" << endl;
+    }
+    else
+    {
+        cout << "Invalid Interval" << endl;
+        return 0;
+    }
+
+    x = a;
+
+    cout << fixed << setprecision(3);
+
+    cout << "\n";
+    cout << "+------+----------+----------+----------+----------+----------+\n";
+    cout << "| Step |    x     |   f(x)   |  f'(x)   |  x_new   |  Error   |\n";
+    cout << "+------+----------+----------+----------+----------+----------+\n";
+
+    for (int i = 1; i <= 100; i++)
+    {
+        if (df(x) == 0)
+        {
+            cout << "Derivative is zero" << endl;
+            return 0;
+        }
+
+        x_new = x - f(x) / df(x);
+        error = fabs(x_new - x);
+
+        cout << "| " << setw(4) << i
+             << " | " << setw(8) << x
+             << " | " << setw(8) << f(x)
+             << " | " << setw(8) << df(x)
+             << " | " << setw(8) << x_new
+             << " | " << setw(8) << error << " |\n";
+
+        if (error < tolerance)
+            break;
+
+        x = x_new;
+    }
+
+    cout << "+------+----------+----------+----------+----------+----------+\n";
+
+    cout << "\nFinal Root = " << x_new << endl;
+
+    return 0;
+}
