@@ -1,3 +1,4 @@
+
 #include <iostream>
 #include <cmath>
 #include <iomanip>
@@ -11,6 +12,7 @@ double f(double x)
 int main()
 {
     double a, b, c, fa, fb, fc;
+    double tolerance = 0.001;
 
     cout << "Enter a: ";
     cin >> a;
@@ -31,7 +33,7 @@ int main()
     cout << "| Step |    a     |    b     |   f(a)   |   f(b)   |    c     |   f(c)   |\n";
     cout << "+------+----------+----------+----------+----------+----------+----------+\n";
 
-    for (int i = 1; i <= 8; i++)
+    for (int i = 1; i <= 100; i++)
     {
         fa = f(a);
         fb = f(b);
@@ -46,7 +48,7 @@ int main()
              << " | " << setw(8) << c
              << " | " << setw(8) << fc << " |\n";
 
-        if (fc == 0)
+        if (fabs(fc) < tolerance)
             break;
 
         if (fa * fc < 0)
