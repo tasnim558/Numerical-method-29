@@ -1,0 +1,48 @@
+
+#include <iostream>
+#include <cmath>
+#include <iomanip>
+using namespace std;
+
+double g(double x)
+{
+  return pow(4*x + 9, 1.0/3.0);
+}
+
+int main()
+{
+    double x, x_new, error;
+    double tolerance = 0.001;
+
+    cout << "Enter initial guess: ";
+    cin >> x;
+
+    cout << fixed << setprecision(2);
+
+    cout << "\n";
+    cout << "+------+----------+----------+----------+\n";
+    cout << "| Step |    x     |  x_new   |  Error   |\n";
+    cout << "+------+----------+----------+----------+\n";
+
+    for (int i = 1; i <= 100; i++)
+    {
+        x_new = g(x);
+        error = fabs(x_new - x);
+
+        cout << "| " << setw(4) << i
+             << " | " << setw(8) << x
+             << " | " << setw(8) << x_new
+             << " | " << setw(8) << error << " |\n";
+
+        if (error < tolerance)
+            break;
+
+        x = x_new;
+    }
+
+    cout << "+------+----------+----------+----------+\n";
+
+    cout << "\nFinal Root = " << x_new << endl;
+
+    return 0;
+}
