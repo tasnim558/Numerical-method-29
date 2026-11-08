@@ -6,16 +6,29 @@ using namespace std;
 
 double g(double x)
 {
-  return pow(4*x + 9, 1.0/3.0);
+    return pow(4*x + 9, 1.0/3.0);
 }
 
 int main()
 {
     double x, x_new, error;
     double tolerance = 0.001;
+    int type;
 
-    cout << "Enter initial guess: ";
-    cin >> x;
+    cout << "Enter type: 1.Simple 2.Transcendental(sin/log/cos/tan/exp)" << endl;
+    cout << "Enter type: ";
+    cin >> type;
+
+    if(type == 1)
+    {
+        x = 0.5;
+    }
+    else
+    {
+        x = 3.2;
+    }
+
+    cout << "Initial guess = " << x << endl;
 
     cout << fixed << setprecision(2);
 
@@ -24,7 +37,7 @@ int main()
     cout << "| Step |    x     |  x_new   |  Error   |\n";
     cout << "+------+----------+----------+----------+\n";
 
-    for (int i = 1; i <= 100; i++)
+    for(int i = 1; i < 100; i++)
     {
         x_new = g(x);
         error = fabs(x_new - x);
@@ -34,7 +47,7 @@ int main()
              << " | " << setw(8) << x_new
              << " | " << setw(8) << error << " |\n";
 
-        if (error < tolerance)
+        if(error < tolerance)
             break;
 
         x = x_new;
@@ -46,3 +59,4 @@ int main()
 
     return 0;
 }
+
