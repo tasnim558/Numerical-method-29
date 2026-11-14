@@ -1,4 +1,3 @@
-
 #include <iostream>
 #include <cmath>
 #include <iomanip>
@@ -6,29 +5,31 @@ using namespace std;
 
 double g(double x)
 {
-    return pow(4*x + 9, 1.0/3.0);
+ return 1 + cos(x)/3;
 }
 
 int main()
 {
     double x, x_new, error;
     double tolerance = 0.001;
-    int type;
-
-    cout << "Enter type: 1.Simple 2.Transcendental(sin/log/cos/tan/exp)" << endl;
-    cout << "Enter type: ";
-    cin >> type;
-
-    if(type == 1)
-    {
-        x = 0.5;
-    }
-    else
+    string equation;
+    cout<<"Enter equation type: ";
+    getline(cin, equation);
+    if(equation.find("sin")!=-1||
+       equation.find("cos")!=-1||
+       equation.find("tan")!=-1||
+       equation.find("log")!=-1||
+       equation.find("exp")!=-1)
     {
         x = 3.2;
     }
+     else
+    {
+        x = 0.5;
+    }
 
-    cout << "Initial guess = " << x << endl;
+
+    cout << "Initial guess = "<< x <<endl;
 
     cout << fixed << setprecision(2);
 
@@ -36,8 +37,7 @@ int main()
     cout << "+------+----------+----------+----------+\n";
     cout << "| Step |    x     |  x_new   |  Error   |\n";
     cout << "+------+----------+----------+----------+\n";
-
-    for(int i = 1; i < 100; i++)
+    for(int i=1; i<100; i++)
     {
         x_new = g(x);
         error = fabs(x_new - x);
@@ -47,7 +47,7 @@ int main()
              << " | " << setw(8) << x_new
              << " | " << setw(8) << error << " |\n";
 
-        if(error < tolerance)
+        if (error < tolerance)
             break;
 
         x = x_new;
@@ -59,4 +59,3 @@ int main()
 
     return 0;
 }
-
